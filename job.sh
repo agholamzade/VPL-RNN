@@ -17,3 +17,6 @@ module load python/3.7.9 scipy-stack
 source $project/py37/bin/activate
 
 python main.py
+
+tar -cf $project/VPL-RNN/result-archive.tar data/output/*
+

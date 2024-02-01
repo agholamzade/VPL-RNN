@@ -79,6 +79,6 @@ class AlexNetRNN(nn.Module):
       out, h = self.rnn(x1, h0)
 
       out = self.fc2(out)
-      out = F.tanh(out)
+      out = F.sigmoid(out)
 
       return out.squeeze(2)

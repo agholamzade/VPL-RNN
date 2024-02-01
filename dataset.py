@@ -39,11 +39,11 @@ class GratingDataset(Dataset):
         img_name = os.path.join(self.root_dir, self.image_list[mode])
         ref_name = self.ref_dir
 
-        ref_label = 0.0
+        # ref_label = 0.0
 
         # set the label of the image. If the image is rotated CW, the label is 1. If the image is rotated CCW, the label is 0.
         if 'CCW' in img_name:
-            img_label = -1.0
+            img_label = 0.0
         elif 'CW' in img_name:
             img_label = 1.0
 
@@ -55,10 +55,10 @@ class GratingDataset(Dataset):
 
         image_seq = torch.cat((ref_images, images))
 
-        ref_labels = torch.full((5,), ref_label)
+        # ref_labels = torch.full((5,), ref_label)
         img_labels = torch.full((5,), img_label)
 
-        labels = torch.cat((ref_labels,img_labels))
+        labels = img_labels
 
 
         return image_seq, labels # dim 2 x 3 x w x h (batch dimension is first)

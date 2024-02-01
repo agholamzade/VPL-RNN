@@ -75,10 +75,10 @@ if __name__ == '__main__':
         test_sep = test_dir[3]
         test_ref_dir = './SG_refs/'+ 'REFERENCE_ref_' + str(test_ref_ori)+'_sep_0.0_contr_1_ph_0.0_sf_'+str(test_sf)+'_NONE.png'
         test_grating_dataset = GratingDataset(test_root_dir, test_ref_dir, transform=data_transforms, num_seqs=num_seqs)
-        test_dataloader = DataLoader(test_grating_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
+        test_dataloader = DataLoader(test_grating_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         wandb.init(
-            project="Alex-RNN-MSE-cluster",
+            project="Alex-RNN-BCE-cluster",
             name="sep-{}".format(train_sep),
             settings=wandb.Settings(start_method="fork"),
             config={
@@ -97,7 +97,7 @@ if __name__ == '__main__':
         copy_weights(model, alexnet)
         model.to(device)
 
-        loss_fn = nn.MSELoss()
+        loss_fn = nn.BCELoss()
 
         optimizer = optim.SGD(model.parameters(), lr=config.lr, momentum=0.8)
 
@@ -105,6 +105,15 @@ if __name__ == '__main__':
         step_ct = 0
 
         for epoch in range(config.epochs):
+            
+            init_train_loss, accuracy = validate_model(model, train_dataloader, loss_fn, device=device)
+
+            metrics = {"train/train_loss": init_train_loss,
+            "train/epoch": (step + 1 + (n_steps_per_epoch * epoch)) / n_steps_per_epoch,
+            "train/example_ct": example_ct,
+            "train/train_accuracy": accuracy}
+
+
             model.train()
             for step, (images, labels) in enumerate(train_dataloader):
                 images, labels = images.to(device), labels.to(device)
@@ -144,6 +153,8 @@ if __name__ == '__main__':
             wandb.log({**metrics, **val_metrics})
 
             print(f"Train Loss: {train_loss:.3f}, Valid Loss: {val_loss:3f}, Accuracy: {accuracy:.2f}")
+            torch.save(model, 'model_sep{}_epoch{}.pth'.format(train_sep, epoch))
+
 
          # If you had a test set, this is how you could log it as a Summary metric
          # 🐝 Close your wandb run
