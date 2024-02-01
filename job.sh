@@ -2,7 +2,7 @@
 #SBATCH --mem=16G
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8
-#SBATCH --time=1:0:0    
+#SBATCH --time=2:0:0    
 #SBATCH --mail-user=aligholamzadeh42@gmail.com
 #SBATCH --mail-type=ALL
 #SBATCH --gres=gpu:p100:1
@@ -18,5 +18,5 @@ source $project/py37/bin/activate
 
 python main.py
 
-tar -cf $project/VPL/VPL-RNN/result-archive.tar data/output/*
+tar -zcf $project/VPL/VPL-RNN/result-archive.tar data/output/
 
