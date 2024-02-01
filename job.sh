@@ -18,5 +18,5 @@ source $project/py37/bin/activate
 
 python main.py
 
-tar -cf $project/VPL-RNN/result-archive.tar data/output/*
+tar -cf $project/VPL/VPL-RNN/result-archive.tar data/output/*
 
