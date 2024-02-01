@@ -79,7 +79,7 @@ if __name__ == '__main__':
 
         wandb.init(
             project="Alex-RNN-MSE-cluster",
-            name= "sep-{}".format(train_sep),
+            name="sep-{}".format(train_sep),
             settings=wandb.Settings(start_method="fork"),
             config={
                 "epochs": num_epochs,
@@ -106,48 +106,48 @@ if __name__ == '__main__':
 
         for epoch in range(config.epochs):
             model.train()
-        for step, (images, labels) in enumerate(train_dataloader):
-            images, labels = images.to(device), labels.to(device)
-            # labels = labels.squeeze()
+            for step, (images, labels) in enumerate(train_dataloader):
+                images, labels = images.to(device), labels.to(device)
+                # labels = labels.squeeze()
 
-            outputs = model(images)
-            last_outputs = outputs
+                outputs = model(images)
+                last_outputs = outputs
 
-            optimizer.zero_grad()
+                optimizer.zero_grad()
 
-            train_loss = loss_fn(last_outputs, labels)
+                train_loss = loss_fn(last_outputs, labels)
 
-            train_loss.backward()
+                train_loss.backward()
 
-            optimizer.step()
+                optimizer.step()
 
-            example_ct += len(images)
+                example_ct += len(images)
 
-            num_corrects = calculate_corrects(outputs[:,-1], labels[:,-1])
+                num_corrects = calculate_corrects(outputs[:,-1], labels[:,-1])
 
-            metrics = {"train/train_loss": train_loss,
-                        "train/epoch": (step + 1 + (n_steps_per_epoch * epoch)) / n_steps_per_epoch,
-                        "train/example_ct": example_ct,
-                        "train/train_accuracy": num_corrects/len(images)}
+                metrics = {"train/train_loss": train_loss,
+                            "train/epoch": (step + 1 + (n_steps_per_epoch * epoch)) / n_steps_per_epoch,
+                            "train/example_ct": example_ct,
+                            "train/train_accuracy": num_corrects/len(images)}
 
-            if step + 1 < n_steps_per_epoch:
-                # 🐝 Log train metrics to wandb
-                wandb.log(metrics)
+                if step + 1 < n_steps_per_epoch:
+                    # 🐝 Log train metrics to wandb
+                    wandb.log(metrics)
 
-            step_ct += 1
+                step_ct += 1
 
-        val_loss, accuracy = validate_model(model, test_dataloader, loss_fn, device=device)
+            val_loss, accuracy = validate_model(model, test_dataloader, loss_fn, device=device)
 
-        # 🐝 Log train and validation metrics to wandb
-        val_metrics = {"val/val_loss": val_loss,
-                        "val/val_accuracy": accuracy}
-        wandb.log({**metrics, **val_metrics})
+            # 🐝 Log train and validation metrics to wandb
+            val_metrics = {"val/val_loss": val_loss,
+                            "val/val_accuracy": accuracy}
+            wandb.log({**metrics, **val_metrics})
 
-        print(f"Train Loss: {train_loss:.3f}, Valid Loss: {val_loss:3f}, Accuracy: {accuracy:.2f}")
+            print(f"Train Loss: {train_loss:.3f}, Valid Loss: {val_loss:3f}, Accuracy: {accuracy:.2f}")
 
-    # If you had a test set, this is how you could log it as a Summary metric
-    # 🐝 Close your wandb run
-    wandb.finish()
+         # If you had a test set, this is how you could log it as a Summary metric
+         # 🐝 Close your wandb run
+        wandb.finish()
 
 
 
