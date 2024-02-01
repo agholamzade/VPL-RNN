@@ -8,4 +8,12 @@
 #SBATCH --gres=gpu:p100:1
 
 
-T
+cd $SLURM_TMPDIR
+git clone git@github.com:aligh42/VPL-RNN.git
+cd ./VPL-RNN
+mkdir -p data/output
+module purge
+module load python/3.7.9 scipy-stack
+source $project/py37/bin/activate
+
+python main.py

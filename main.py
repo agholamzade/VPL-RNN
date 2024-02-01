@@ -20,6 +20,8 @@ if __name__ == '__main__':
         transforms.ToTensor(),
         GaussianNoise(0, 0.01), # STANDARD DEVIATION OF GAUSSIAN NOISE
     ])
+    
+    wandb.login()
 
     root_dir = './SG_train_double_sf/'
     test_root_dir = './SG_test_double_sf/'
