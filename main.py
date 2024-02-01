@@ -109,7 +109,7 @@ if __name__ == '__main__':
             init_train_loss, accuracy = validate_model(model, train_dataloader, loss_fn, device=device)
 
             metrics = {"train/train_loss": init_train_loss,
-            "train/epoch": (step + 1 + (n_steps_per_epoch * epoch)) / n_steps_per_epoch,
+            "train/epoch": 0,
             "train/example_ct": example_ct,
             "train/train_accuracy": accuracy}
 
