@@ -6,7 +6,7 @@ class AlexNetRNN(nn.Module):
     def __init__(self):
         super(AlexNetRNN, self).__init__()
         self.rnn_input = 32
-        self.hidden_size = 64
+        self.hidden_size = 128
 
         self.seq_len = 10
         self.added_zeros = 5
