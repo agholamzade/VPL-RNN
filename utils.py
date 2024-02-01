@@ -20,7 +20,7 @@ def validate_model(model, valid_dl, loss_func, device):
 
             # Forward pass ➡
             outputs = model(images)
-            last_outputs = outputs
+            last_outputs = outputs[:,-5:]
 
             val_loss += loss_func(last_outputs, labels)*labels.size(0)
 

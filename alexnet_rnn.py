@@ -9,6 +9,7 @@ class AlexNetRNN(nn.Module):
         self.hidden_size = 64
 
         self.seq_len = 10
+        self.added_zeros = 5
 
         self.conv1 = nn.Conv2d(3, 64, 11, stride=4, padding=2)
         self.conv2 = nn.Conv2d(64, 192, 5, padding=2)
@@ -72,6 +73,9 @@ class AlexNetRNN(nn.Module):
       x1 = x1.view(-1, self.seq_len, self.rnn_input)
 
       batch_size = x1.shape[0]
+
+      zeros_to_concat = torch.zeros(batch_size, self.added_zeros, self.rnn_input, device=x1.device)
+      x1 = torch.cat((x1, zeros_to_concat), dim=1)
 
       h0 = torch.zeros(1, batch_size, self.hidden_size, device=x1.device)
       # c0 = torch.zeros_like(h0)

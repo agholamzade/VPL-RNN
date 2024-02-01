@@ -120,7 +120,7 @@ if __name__ == '__main__':
                 # labels = labels.squeeze()
 
                 outputs = model(images)
-                last_outputs = outputs
+                last_outputs = outputs[:,-5:]
 
                 optimizer.zero_grad()
 
