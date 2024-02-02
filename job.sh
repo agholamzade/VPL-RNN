@@ -18,5 +18,5 @@ source $project/py37/bin/activate
 
 python main.py
 
-tar -zcf $project/VPL/VPL-RNN/result-RNN-BCE.tar data/output/
+tar -zcf $project/VPL/VPL-RNN/result-GRU-BCE.tar data/output/
 

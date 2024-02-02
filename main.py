@@ -78,7 +78,7 @@ if __name__ == '__main__':
         test_dataloader = DataLoader(test_grating_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         wandb.init(
-            project="Alex-RNN-BCE-cluster-final",
+            project="Alex-GRU-BCE-cluster-final",
             name="sep-{}".format(train_sep),
             settings=wandb.Settings(start_method="fork"),
             config={
@@ -153,7 +153,7 @@ if __name__ == '__main__':
             wandb.log({**metrics, **val_metrics})
 
             print(f"Train Loss: {train_loss:.3f}, Valid Loss: {val_loss:3f}, Accuracy: {accuracy:.2f}")
-            torch.save(model, 'model_sep{}_epoch{}.pth'.format(train_sep, epoch))
+            torch.save(model, 'data/output/model_sep{}_epoch{}.pth'.format(train_sep, epoch))
 
 
          # If you had a test set, this is how you could log it as a Summary metric
