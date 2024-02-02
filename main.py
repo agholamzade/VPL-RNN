@@ -84,7 +84,7 @@ if __name__ == '__main__':
             config={
                 "epochs": num_epochs,
                 "batch_size": batch_size,
-                "lr": 1e-2,
+                "lr": 5e-3,
                 "sep": train_sep
         })
 

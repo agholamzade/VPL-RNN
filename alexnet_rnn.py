@@ -5,8 +5,8 @@ import torch.nn.functional as F
 class AlexNetRNN(nn.Module):
     def __init__(self):
         super(AlexNetRNN, self).__init__()
-        self.rnn_input = 32
-        self.hidden_size = 128
+        self.rnn_input = 16
+        self.hidden_size = 32
 
         self.seq_len = 10
         self.added_zeros = 5
