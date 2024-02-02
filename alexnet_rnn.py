@@ -21,7 +21,7 @@ class AlexNetRNN(nn.Module):
         #self.dropout = nn.Dropout(p=0.5)
         self.pool = nn.MaxPool2d(3, stride=2)
 
-        self.rnn = nn.RNN(self.rnn_input, self.hidden_size, 1, batch_first=True)
+        self.rnn = nn.GRU(self.rnn_input, self.hidden_size, 1, batch_first=True)
 
         self.fc2 = nn.Linear(self.hidden_size, 1)
 
