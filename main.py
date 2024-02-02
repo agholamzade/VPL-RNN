@@ -84,7 +84,7 @@ if __name__ == '__main__':
             config={
                 "epochs": num_epochs,
                 "batch_size": batch_size,
-                "lr": e-3,
+                "lr": 1e-3,
                 "sep": train_sep
         })
 
@@ -159,9 +159,4 @@ if __name__ == '__main__':
          # If you had a test set, this is how you could log it as a Summary metric
          # 🐝 Close your wandb run
         wandb.finish()
-
-
-
-
-
 
