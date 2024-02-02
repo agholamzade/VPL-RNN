@@ -78,7 +78,7 @@ if __name__ == '__main__':
         test_dataloader = DataLoader(test_grating_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         wandb.init(
-            project="Alex-RNN-BCE-cluster",
+            project="Alex-GRU-BCE-cluster",
             name="sep-{}".format(train_sep),
             settings=wandb.Settings(start_method="fork"),
             config={
