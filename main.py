@@ -149,7 +149,7 @@ if __name__ == '__main__':
 
                 step_ct += 1
 
-            val_loss, accuracy = validate_model(model, test_dataloader, loss_fn, device=device)
+            val_loss, accuracy = validate_model(model, test_dataloader, loss_fn, loss_fn2, device=device)
 
             # 🐝 Log train and validation metrics to wandb
             val_metrics = {"val/val_loss": val_loss,
