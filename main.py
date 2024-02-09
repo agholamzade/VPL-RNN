@@ -78,7 +78,7 @@ if __name__ == '__main__':
         test_dataloader = DataLoader(test_grating_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         wandb.init(
-            project="Alex-GRU-BCE-cluster-final",
+            project="Alex-GRU-BCE-MSE-pred",
             name="sep-{}".format(train_sep),
             settings=wandb.Settings(start_method="fork"),
             config={
@@ -127,7 +127,7 @@ if __name__ == '__main__':
 
                 loss1 = loss_fn(last_outputs, labels)
                 loss2 = loss_fn2(rnn_input, pred_out)
-                
+
                 train_loss = loss1 + loss2
 
                 train_loss.backward()
