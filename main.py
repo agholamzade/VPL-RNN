@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
         for epoch in range(config.epochs):
             
-            init_train_loss, accuracy = validate_model(model, train_dataloader, loss_fn, device=device)
+            init_train_loss, accuracy = validate_model(model, train_dataloader, loss_fn, loss_fn2, device=device)
 
             metrics = {"train/train_loss": init_train_loss,
             "train/epoch": 0,
