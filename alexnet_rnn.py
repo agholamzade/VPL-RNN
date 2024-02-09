@@ -90,7 +90,7 @@ class AlexNetRNN(nn.Module):
 
       pred_out = self.fc3(out)
       pred_out =  F.relu(pred_out)
-      pred_out = pred_out[:,0:10,:]
+      pred_out = pred_out[:,0:9,:]
 
       out = self.fc2(out)
       out = F.sigmoid(out)
