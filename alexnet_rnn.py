@@ -25,6 +25,9 @@ class AlexNetRNN(nn.Module):
 
         self.fc2 = nn.Linear(self.hidden_size, 1)
 
+        self.fc3 = nn.Linear(self.hidden_size, self.rnn_input)
+
+
     def forward(self, x1):
 
       x1 = x1.view(-1, 3, 227,227)
@@ -74,6 +77,9 @@ class AlexNetRNN(nn.Module):
 
       batch_size = x1.shape[0]
 
+      rnn_input = x1.clone()
+      rnn_input = x[:,1:,:]
+
       zeros_to_concat = torch.zeros(batch_size, self.added_zeros, self.rnn_input, device=x1.device)
       x1 = torch.cat((x1, zeros_to_concat), dim=1)
 
@@ -82,7 +88,11 @@ class AlexNetRNN(nn.Module):
 
       out, h = self.rnn(x1, h0)
 
+      pred_out = self.fc3(out)
+      pred_out =  F.relu(pred_out)
+      pred_out = pred_out[:,0:10,:]
+
       out = self.fc2(out)
       out = F.sigmoid(out)
 
-      return out.squeeze(2)
+      return out.squeeze(2), rnn_input, pred_out

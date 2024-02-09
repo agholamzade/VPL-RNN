@@ -98,6 +98,7 @@ if __name__ == '__main__':
         model.to(device)
 
         loss_fn = nn.BCELoss()
+        loss_fn2 = nn.MSELoss()
 
         optimizer = optim.SGD(model.parameters(), lr=config.lr, momentum=0.8)
 
@@ -119,12 +120,15 @@ if __name__ == '__main__':
                 images, labels = images.to(device), labels.to(device)
                 # labels = labels.squeeze()
 
-                outputs = model(images)
+                outputs, rnn_input, pred_out = model(images)
                 last_outputs = outputs[:,-5:]
 
                 optimizer.zero_grad()
 
-                train_loss = loss_fn(last_outputs, labels)
+                loss1 = loss_fn(last_outputs, labels)
+                loss2 = loss_fn2(rnn_input, pred_out)
+                
+                train_loss = loss1 + loss2
 
                 train_loss.backward()
 

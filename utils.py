@@ -8,7 +8,7 @@ def calculate_corrects(last_outputs, last_labels):
   corrects = (predicted == last_labels).sum().item()
   return corrects
 
-def validate_model(model, valid_dl, loss_func, device):
+def validate_model(model, valid_dl, loss_func1, loss_func2, device):
     model.eval()
     val_loss = 0.
     with torch.inference_mode():
@@ -19,11 +19,11 @@ def validate_model(model, valid_dl, loss_func, device):
             # labels = labels.squeeze()
 
             # Forward pass ➡
-            outputs = model(images)
+            outputs, rnn_input, pred_out  = model(images)
             last_outputs = outputs[:,-5:]
 
-            val_loss += loss_func(last_outputs, labels)*labels.size(0)
-
+            val_loss += loss_func1(last_outputs, labels)*labels.size(0)
+            val_loss += loss_func2(rnn_input, pred_out)
             # Compute accuracy and accumulate
             correct += calculate_corrects(outputs[:,-1], labels[:,-1])
 
