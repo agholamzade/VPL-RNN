@@ -22,7 +22,7 @@ def validate_model(model, valid_dl, loss_func1, loss_func2, device):
             outputs, rnn_input, pred_out  = model(images)
             last_outputs = outputs[:,-5:]
 
-            val_loss += loss_func1(last_outputs, labels)*labels.size(0)
+            # val_loss += loss_func1(last_outputs, labels)*labels.size(0)
             val_loss += loss_func2(rnn_input, pred_out)
             # Compute accuracy and accumulate
             correct += calculate_corrects(outputs[:,-1], labels[:,-1])

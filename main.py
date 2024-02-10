@@ -53,7 +53,7 @@ if __name__ == '__main__':
                     ]
 
     models = []
-    for i in range(len(dir_list)):
+    for i in range(1):
 
         train_dir = dir_list[i]
         train_root_dir = train_dir[0]
@@ -128,7 +128,7 @@ if __name__ == '__main__':
                 loss1 = loss_fn(last_outputs, labels)
                 loss2 = loss_fn2(rnn_input, pred_out)
 
-                train_loss = loss1 + loss2
+                train_loss = loss2
 
                 train_loss.backward()
 
