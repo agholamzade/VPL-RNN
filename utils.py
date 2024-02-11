@@ -42,7 +42,7 @@ def copy_weights(model, alexnet):
     model.conv5.bias.data = alexnet.features[10].bias.data
 
 def compute_var(embeddings):
-    embeddings_flat = embeddings.view(-1, embeddings.size(2))  # New size: (N*L, D)
+    embeddings_flat = embeddings.reshape(-1, embeddings.size(2))  # New size: (N*L, D)
 
     # Compute mean across the batch (considering each time step in the sequence as part of the batch)
     mean_per_dim = embeddings_flat.mean(dim=0)  # Size: (D,)
