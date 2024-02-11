@@ -126,9 +126,9 @@ if __name__ == '__main__':
                 optimizer.zero_grad()
 
                 loss1 = loss_fn(last_outputs, labels)
-                loss2 = loss_fn2(rnn_input, pred_out)
+                loss2 = loss_fn2(rnn_input, pred_out) 
 
-                train_loss = 2*loss1 + loss2
+                train_loss = 100*loss1 + loss2
 
                 train_loss.backward()
 
