@@ -40,3 +40,18 @@ def copy_weights(model, alexnet):
     model.conv4.bias.data = alexnet.features[8].bias.data
     model.conv5.weight.data = alexnet.features[10].weight.data
     model.conv5.bias.data = alexnet.features[10].bias.data
+
+def compute_var(embeddings):
+    embeddings_flat = embeddings.view(-1, embeddings.size(2))  # New size: (N*L, D)
+
+    # Compute mean across the batch (considering each time step in the sequence as part of the batch)
+    mean_per_dim = embeddings_flat.mean(dim=0)  # Size: (D,)
+
+    # Compute variance across the batch for each dimension
+    variance_per_dim = ((embeddings_flat - mean_per_dim) ** 2).mean(dim=0)  # Size: (D,)
+
+    # Apply the threshold γ (gamma) to the standard deviation, not variance
+    gamma = 1.0  # Example threshold for standard deviation
+    std_per_dim = torch.sqrt(variance_per_dim)  # Standard deviation for each dimension
+    variance_loss = torch.relu(gamma - std_per_dim).mean()  # Applying the VICReg variance component formula
+    print("Variance Loss:", variance_loss)

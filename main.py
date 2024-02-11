@@ -85,7 +85,8 @@ if __name__ == '__main__':
                 "epochs": num_epochs,
                 "batch_size": batch_size,
                 "lr": 5e-3,
-                "sep": train_sep
+                "sep": train_sep,
+                "var_mult": 1
         })
 
           # Copy your config
@@ -126,9 +127,9 @@ if __name__ == '__main__':
                 optimizer.zero_grad()
 
                 loss1 = loss_fn(last_outputs, labels)
-                loss2 = loss_fn2(rnn_input, pred_out) 
+                loss2 = loss_fn2(rnn_input, pred_out) - config["var_mult"]*compute_var(pred_out)
 
-                train_loss = loss1 + .5*loss2
+                train_loss = loss1 + loss2
 
                 train_loss.backward()
 
