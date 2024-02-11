@@ -128,7 +128,7 @@ if __name__ == '__main__':
                 loss1 = loss_fn(last_outputs, labels)
                 loss2 = loss_fn2(rnn_input, pred_out)
 
-                train_loss = loss2
+                train_loss = loss1 + loss2
 
                 train_loss.backward()
 
@@ -141,6 +141,8 @@ if __name__ == '__main__':
                 metrics = {"train/train_loss": train_loss,
                             "train/epoch": (step + 1 + (n_steps_per_epoch * epoch)) / n_steps_per_epoch,
                             "train/example_ct": example_ct,
+                            "train/BCE_Loss": loss1, 
+                            "train/MSE_loss": loss2, 
                             "train/train_accuracy": num_corrects/len(images)}
 
                 if step + 1 < n_steps_per_epoch:
