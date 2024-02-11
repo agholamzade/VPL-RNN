@@ -54,4 +54,4 @@ def compute_var(embeddings):
     gamma = 1.0  # Example threshold for standard deviation
     std_per_dim = torch.sqrt(variance_per_dim)  # Standard deviation for each dimension
     variance_loss = torch.relu(gamma - std_per_dim).mean()  # Applying the VICReg variance component formula
-    print("Variance Loss:", variance_loss)
+    return variance_loss
