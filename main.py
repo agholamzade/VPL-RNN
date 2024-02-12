@@ -30,7 +30,7 @@ if __name__ == '__main__':
     
     num_seqs = 1000
     batch_size = 100
-    num_epochs = 15
+    num_epochs = 30
 
     num_workers = 8 
 
