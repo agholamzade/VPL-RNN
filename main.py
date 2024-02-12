@@ -53,7 +53,7 @@ if __name__ == '__main__':
                     ]
 
     models = []
-    for i in range(1):
+    for i in range(len(dir_list)):
 
         train_dir = dir_list[i]
         train_root_dir = train_dir[0]
