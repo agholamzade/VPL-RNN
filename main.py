@@ -95,7 +95,7 @@ if __name__ == '__main__':
                 "batch_size": batch_size,
                 "lr": 5e-3,
                 "sep": train_sep,
-                "var_mult": 1
+                "pred_mult": .04
         })
 
           # Copy your config
@@ -121,7 +121,7 @@ if __name__ == '__main__':
 
             metrics = {"train/BCE_Loss": init_train_loss1,
             "train/MSE_loss": init_train_loss2,
-            "train/train_loss": init_train_loss1 +  .05*init_train_loss2,
+            "train/train_loss": init_train_loss1 + config["pred_mult"]*init_train_loss2,
             "train/epoch": 0,
             "train/example_ct": example_ct,
             "train/train_accuracy": accuracy}
@@ -141,7 +141,7 @@ if __name__ == '__main__':
                 loss2 = loss_fn2(rnn_input, pred_out) 
                 # loss2 = loss_fn2(rnn_input, pred_out) + compute_var(pred_out)
 
-                train_loss = loss1 + .05*loss2
+                train_loss = loss1 + config["pred_mult"]*loss2
 
                 train_loss.backward()
 
