@@ -13,7 +13,9 @@ from torchvision import models, transforms
 from utils import *
 import wandb
 
+import numpy as np
 import math
+import random
 
 if __name__ == '__main__':
 
@@ -35,6 +37,13 @@ if __name__ == '__main__':
     num_workers = 8 
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    
+    seed = 42
+
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
     dir_list = [
                 [root_dir+'sep_10.0',0,0.05,10.0],
@@ -108,9 +117,11 @@ if __name__ == '__main__':
 
         for epoch in range(config.epochs):
             
-            init_train_loss, accuracy = validate_model(model, train_dataloader, loss_fn, loss_fn2, device=device)
+            init_train_loss1, init_train_loss2, accuracy = validate_model(model, train_dataloader, loss_fn, loss_fn2, device=device)
 
-            metrics = {"train/train_loss": init_train_loss,
+            metrics = {"train/BCE_Loss": init_train_loss1,
+            "train/MSE_loss": init_train_loss2,
+            "train/train_loss": init_train_loss1 +  .05*init_train_loss2,
             "train/epoch": 0,
             "train/example_ct": example_ct,
             "train/train_accuracy": accuracy}
@@ -153,18 +164,21 @@ if __name__ == '__main__':
 
                 step_ct += 1
 
-            val_loss, accuracy = validate_model(model, test_dataloader, loss_fn, loss_fn2, device=device)
+            val_loss1, val_loss2, accuracy = validate_model(model, test_dataloader, loss_fn, loss_fn2, device=device)
 
             # 🐝 Log train and validation metrics to wandb
-            val_metrics = {"val/val_loss": val_loss,
+            val_metrics = {"val/BCE_Loss": val_loss1,
+                           "val/MSE_loss": val_loss2,
                             "val/val_accuracy": accuracy}
             wandb.log({**metrics, **val_metrics})
 
-            print(f"Train Loss: {train_loss:.3f}, Valid Loss: {val_loss:3f}, Accuracy: {accuracy:.2f}")
-            torch.save(model, 'data/output/model_sep{}_epoch{}.pth'.format(train_sep, epoch))
+            # print(f"Train Loss: {train_loss:.3f}, Valid Loss: {val_loss:3f}, Accuracy: {accuracy:.2f}")
+            if epoch%5 ==0:
+                torch.save(model, 'data/output/model_sep{}_epoch{}.pth'.format(train_sep, epoch))
 
 
          # If you had a test set, this is how you could log it as a Summary metric
          # 🐝 Close your wandb run
+        torch.save(model, 'data/output/model_sep{}_last_epoch.pth'.format(train_sep))
         wandb.finish()
 

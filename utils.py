@@ -10,7 +10,8 @@ def calculate_corrects(last_outputs, last_labels):
 
 def validate_model(model, valid_dl, loss_func1, loss_func2, device):
     model.eval()
-    val_loss = 0.
+    val_loss1 = 0.
+    val_loss2 = 0.
     with torch.inference_mode():
         correct = 0
         for i, (images, labels) in enumerate(valid_dl):
@@ -22,12 +23,12 @@ def validate_model(model, valid_dl, loss_func1, loss_func2, device):
             outputs, rnn_input, pred_out  = model(images)
             last_outputs = outputs[:,-5:]
 
-            val_loss += loss_func1(last_outputs, labels)*labels.size(0)
-            val_loss += loss_func2(rnn_input, pred_out)
+            val_loss1 += loss_func1(last_outputs, labels)*labels.size(0)
+            val_loss2 += loss_func2(rnn_input, pred_out)*labels.size(0)
             # Compute accuracy and accumulate
             correct += calculate_corrects(outputs[:,-1], labels[:,-1])
 
-    return val_loss / len(valid_dl.dataset), correct / len(valid_dl.dataset)
+    return val_loss1 / len(valid_dl.dataset), val_loss2 / len(valid_dl.dataset), correct / len(valid_dl.dataset)
 
 def copy_weights(model, alexnet):
     model.conv1.weight.data = alexnet.features[0].weight.data
