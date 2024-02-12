@@ -52,6 +52,7 @@ if __name__ == '__main__':
                 [root_dir+'sep_1.0',0,0.05,1.0],
                 [root_dir+'sep_0.5',0,0.05,0.5]
                 ]
+    dir_list.reverse()
 
     test_dir_list = [
                     [test_root_dir+'sep_10.0',0,0.1,10.0],
@@ -60,6 +61,7 @@ if __name__ == '__main__':
                     [test_root_dir+'sep_1.0',0,0.1,1.0],
                     [test_root_dir+'sep_0.5',0,0.1,0.5]
                     ]
+    test_dir_list.reverse()
 
     models = []
     for i in range(len(dir_list)):
@@ -95,7 +97,7 @@ if __name__ == '__main__':
                 "batch_size": batch_size,
                 "lr": 5e-3,
                 "sep": train_sep,
-                "pred_mult": .04
+                "pred_mult": .01
         })
 
           # Copy your config
