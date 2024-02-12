@@ -129,7 +129,7 @@ if __name__ == '__main__':
                 loss1 = loss_fn(last_outputs, labels)
                 loss2 = loss_fn2(rnn_input, pred_out) + compute_var(pred_out)
 
-                train_loss = loss1 + .1*loss2
+                train_loss = loss1 + .05*loss2
 
                 train_loss.backward()
 
