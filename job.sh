@@ -5,7 +5,7 @@
 #SBATCH --time=1:0:0    
 #SBATCH --mail-user=aligholamzadeh42@gmail.com
 #SBATCH --mail-type=ALL
-#SBATCH --gres=gpu:v100:1
+#SBATCH --gres=gpu:v100l:1
 
 
 cd $SLURM_TMPDIR
