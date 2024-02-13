@@ -2,7 +2,7 @@
 #SBATCH --mem=16G
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8
-#SBATCH --time=2:0:0    
+#SBATCH --time=1:0:0    
 #SBATCH --mail-user=aligholamzadeh42@gmail.com
 #SBATCH --mail-type=ALL
 #SBATCH --gres=gpu:p100:1
@@ -16,6 +16,7 @@ module purge
 module load python/3.7.9 scipy-stack
 source $project/py37/bin/activate
 
+wandb offline
 
 python main.py
 
