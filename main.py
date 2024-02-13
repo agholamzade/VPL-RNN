@@ -64,7 +64,7 @@ if __name__ == '__main__':
     test_dir_list.reverse()
 
     models = []
-    for i in range(1):
+    for i in range(len(dir_list)):
 
         train_dir = dir_list[i]
         train_root_dir = train_dir[0]
@@ -95,7 +95,7 @@ if __name__ == '__main__':
             config={
                 "epochs": num_epochs,
                 "batch_size": batch_size,
-                "lr": 5e-3,
+                "lr": 2e-3,
                 "sep": train_sep,
                 "pred_mult": .05
         })
