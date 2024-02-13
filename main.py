@@ -95,7 +95,7 @@ if __name__ == '__main__':
             config={
                 "epochs": num_epochs,
                 "batch_size": batch_size,
-                "lr": 5e-3,
+                "lr": 1e-3,
                 "sep": train_sep,
                 "pred_mult": .05
         })
@@ -112,7 +112,7 @@ if __name__ == '__main__':
         loss_fn = nn.BCELoss()
         loss_fn2 = nn.MSELoss()
 
-        optimizer = optim.SGD(model.parameters(), lr=config.lr, momentum=0.8)
+        optimizer = optim.SGD(model.parameters(), lr=config.lr, momentum=0.9)
 
         example_ct = 0
         step_ct = 0
