@@ -95,9 +95,9 @@ if __name__ == '__main__':
             config={
                 "epochs": num_epochs,
                 "batch_size": batch_size,
-                "lr": 2e-3,
+                "lr": 1e-3,
                 "sep": train_sep,
-                "pred_mult": .01
+                "pred_mult": .008
         })
 
           # Copy your config
