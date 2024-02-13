@@ -16,8 +16,6 @@ module purge
 module load python/3.7.9 scipy-stack
 source $project/py37/bin/activate
 
-wandb offline
-
 python main.py
 
 tar -zcf $project/VPL/VPL-RNN/result-GRU-BCE-MSE.tar data/output/
