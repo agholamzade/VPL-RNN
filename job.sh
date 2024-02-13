@@ -16,7 +16,6 @@ module purge
 module load python/3.7.9 scipy-stack
 source $project/py37/bin/activate
 
-wandb offline
 
 python main.py
 
