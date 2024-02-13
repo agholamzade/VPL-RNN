@@ -21,4 +21,5 @@ wandb offline
 python main.py
 
 tar -zcf $project/VPL/VPL-RNN/result-GRU-BCE-MSE.tar data/output/
+tar -zcf $project/VPL/VPL-RNN/wand_res.tar ./wandb/
 
