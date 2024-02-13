@@ -143,7 +143,7 @@ if __name__ == '__main__':
                 loss2 = loss_fn2(rnn_input, pred_out) 
                 # loss2 = loss_fn2(rnn_input, pred_out) + compute_var(pred_out)
 
-                if epoch < 40:
+                if epoch < 10:
                     train_loss = loss1 
                 else:
                     train_loss = loss1 + config["pred_mult"]*loss2
