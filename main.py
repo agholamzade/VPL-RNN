@@ -97,7 +97,7 @@ if __name__ == '__main__':
                 "batch_size": batch_size,
                 "lr": 5e-3,
                 "sep": train_sep,
-                "pred_mult": .01
+                "pred_mult": .05
         })
 
           # Copy your config
@@ -143,7 +143,7 @@ if __name__ == '__main__':
                 loss2 = loss_fn2(rnn_input, pred_out) 
                 # loss2 = loss_fn2(rnn_input, pred_out) + compute_var(pred_out)
 
-                if step < 40:
+                if step < 30:
                     train_loss = loss1 
                 else:
                     train_loss = loss1 + config["pred_mult"]*loss2
