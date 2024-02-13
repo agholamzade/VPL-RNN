@@ -32,7 +32,7 @@ if __name__ == '__main__':
     
     num_seqs = 1000
     batch_size = 100
-    num_epochs = 30
+    num_epochs = 25
 
     num_workers = 8 
 
@@ -97,7 +97,7 @@ if __name__ == '__main__':
                 "batch_size": batch_size,
                 "lr": 2e-3,
                 "sep": train_sep,
-                "pred_mult": .05
+                "pred_mult": .01
         })
 
           # Copy your config
@@ -143,7 +143,7 @@ if __name__ == '__main__':
                 loss2 = loss_fn2(rnn_input, pred_out) 
                 # loss2 = loss_fn2(rnn_input, pred_out) + compute_var(pred_out)
 
-                if epoch < 10:
+                if epoch < 0:
                     train_loss = loss1 
                 else:
                     train_loss = loss1 + config["pred_mult"]*loss2
