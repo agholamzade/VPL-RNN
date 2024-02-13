@@ -64,7 +64,7 @@ if __name__ == '__main__':
     test_dir_list.reverse()
 
     models = []
-    for i in range(len(dir_list)):
+    for i in range(1):
 
         train_dir = dir_list[i]
         train_root_dir = train_dir[0]
