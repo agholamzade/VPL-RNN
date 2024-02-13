@@ -31,8 +31,8 @@ if __name__ == '__main__':
     test_root_dir = './SG_test_double_sf/'
     
     num_seqs = 1000
-    batch_size = 100
-    num_epochs = 25
+    batch_size = 200
+    num_epochs = 40
 
     num_workers = 8 
 
@@ -95,9 +95,9 @@ if __name__ == '__main__':
             config={
                 "epochs": num_epochs,
                 "batch_size": batch_size,
-                "lr": 1e-3,
+                "lr": 2e-3,
                 "sep": train_sep,
-                "pred_mult": .008
+                "pred_mult": .01
         })
 
           # Copy your config
