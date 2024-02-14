@@ -32,7 +32,7 @@ if __name__ == '__main__':
     
     num_seqs = 1000
     batch_size = 200
-    num_epochs = 40
+    num_epochs = 60
 
     num_workers = 8 
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
             config={
                 "epochs": num_epochs,
                 "batch_size": batch_size,
-                "lr": 2e-3,
+                "lr": 1e-3,
                 "sep": train_sep,
                 "pred_mult": .01
         })

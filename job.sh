@@ -2,7 +2,7 @@
 #SBATCH --mem=16G
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8
-#SBATCH --time=2:0:0    
+#SBATCH --time=4:0:0    
 #SBATCH --mail-user=aligholamzadeh42@gmail.com
 #SBATCH --mail-type=ALL
 #SBATCH --gres=gpu:v100l:1
