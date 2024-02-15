@@ -32,7 +32,8 @@ if __name__ == '__main__':
     
     num_seqs = 1000
     batch_size = 200
-    num_epochs = 60
+    # num_epochs = 60
+    num_epochs = 10
 
     num_workers = 8 
 
@@ -180,7 +181,7 @@ if __name__ == '__main__':
             wandb.log({**metrics, **val_metrics})
 
             # print(f"Train Loss: {train_loss:.3f}, Valid Loss: {val_loss:3f}, Accuracy: {accuracy:.2f}")
-            if epoch%5 ==0:
+            if epoch in [0,5,10,15,20,25,30]:
                 torch.save(model, 'data/output/model_sep{}_epoch{}.pth'.format(train_sep, epoch))
 
 
