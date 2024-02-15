@@ -32,7 +32,7 @@ if __name__ == '__main__':
     
     num_seqs = 1000
     batch_size = 200
-    num_epochs = 20
+    num_epochs = 60
     # num_epochs = 10
 
     num_workers = 8 
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     test_dir_list.reverse()
 
     models = []
-    for i in range(1):
+    for i in range(len(dir_list)):
 
         train_dir = dir_list[i]
         train_root_dir = train_dir[0]
