@@ -181,12 +181,12 @@ if __name__ == '__main__':
             wandb.log({**metrics, **val_metrics})
 
             # print(f"Train Loss: {train_loss:.3f}, Valid Loss: {val_loss:3f}, Accuracy: {accuracy:.2f}")
-            if epoch in [0,5,10,15,20,25,30]:
-                torch.save(model, 'data/output/model_sep{}_epoch{}.pth'.format(train_sep, epoch))
+            if epoch in [0,15,30,45]:
+                torch.save(model.state_dict(), 'data/output/model_sep{}_epoch{}.pth'.format(train_sep, epoch))
 
 
          # If you had a test set, this is how you could log it as a Summary metric
          # 🐝 Close your wandb run
-        torch.save(model, 'data/output/model_sep{}_last_epoch.pth'.format(train_sep))
+        torch.save(model.state_dict(), 'data/output/model_sep{}_last_epoch.pth'.format(train_sep))
         wandb.finish()
 
