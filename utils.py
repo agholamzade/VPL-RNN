@@ -70,7 +70,7 @@ def validate_model_reg(model, valid_dl, loss_func, device):
             images, labels = images.to(device), labels.to(device)
             labels = labels.squeeze()
 
-            outputs,  = model(images)
+            outputs = model(images)
 
             val_loss1 += loss_func(outputs, labels)*labels.size(0)
             # Compute accuracy and accumulate
