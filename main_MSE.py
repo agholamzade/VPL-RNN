@@ -1,7 +1,7 @@
 
 from dataset_reg import GratingDataset
 from transforms import GaussianNoise
-from alexnet_rnn import AlexNetRNN
+from alexnet_rnn_reg import AlexNetRNN
 
 import torch
 import torch.nn as nn
@@ -90,7 +90,7 @@ if __name__ == '__main__':
         test_dataloader = DataLoader(test_grating_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         wandb.init(
-            project="Alex-GRU-BCE-loss",
+            project="Alex-GRU-MSEE-loss",
             name="sep-{}".format(train_sep),
             settings=wandb.Settings(start_method="fork"),
             config={
@@ -110,8 +110,7 @@ if __name__ == '__main__':
         copy_weights(model, alexnet)
         model.to(device)
 
-        loss_fn = nn.BCELoss()
-        loss_fn2 = nn.MSELoss()
+        loss_fn = nn.MSELoss()
 
         optimizer = optim.SGD(model.parameters(), lr=config.lr, momentum=0.9)
 
@@ -120,11 +119,9 @@ if __name__ == '__main__':
 
         for epoch in range(config.epochs):
             
-            init_train_loss1, init_train_loss2, accuracy = validate_model(model, train_dataloader, loss_fn, loss_fn2, device=device)
+            init_train_loss1, accuracy = validate_model_reg(model, train_dataloader, loss_fn, device=device)
 
             metrics = {"train/BCE_Loss": init_train_loss1,
-            "train/MSE_loss": init_train_loss2,
-            "train/train_loss": init_train_loss1 + config["pred_mult"]*init_train_loss2,
             "train/epoch": 0,
             "train/example_ct": example_ct,
             "train/train_accuracy": accuracy}
@@ -133,18 +130,16 @@ if __name__ == '__main__':
             model.train()
             for step, (images, labels) in enumerate(train_dataloader):
                 images, labels = images.to(device), labels.to(device)
-                # labels = labels.squeeze()
+                labels = labels.squeeze()
 
-                outputs, rnn_input, pred_out = model(images)
-                last_outputs = outputs[:,-5:]
+                outputs = model(images)
 
                 optimizer.zero_grad()
 
-                loss1 = loss_fn(last_outputs, labels)
-                loss2 = loss_fn2(rnn_input, pred_out) 
+                loss2 = loss_fn(outputs, labels) 
                 # loss2 = loss_fn2(rnn_input, pred_out) + compute_var(pred_out)
 
-                train_loss = loss1 
+                train_loss = loss2
 
                 # train_loss = loss1
 
@@ -159,8 +154,6 @@ if __name__ == '__main__':
                 metrics = {"train/train_loss": train_loss,
                             "train/epoch": (step + 1 + (n_steps_per_epoch * epoch)) / n_steps_per_epoch,
                             "train/example_ct": example_ct,
-                            "train/BCE_Loss": loss1, 
-                            "train/MSE_loss": loss2, 
                             "train/train_accuracy": num_corrects/len(images)}
 
                 if step + 1 < n_steps_per_epoch:
@@ -169,11 +162,10 @@ if __name__ == '__main__':
 
                 step_ct += 1
 
-            val_loss1, val_loss2, accuracy = validate_model(model, test_dataloader, loss_fn, loss_fn2, device=device)
+            val_loss1, accuracy = validate_model_reg(model, test_dataloader, loss_fn, device=device)
 
             # 🐝 Log train and validation metrics to wandb
-            val_metrics = {"val/BCE_Loss": val_loss1,
-                           "val/MSE_loss": val_loss2,
+            val_metrics = { "val/MSE_loss": val_loss1,
                             "val/val_accuracy": accuracy}
             wandb.log({**metrics, **val_metrics})
 

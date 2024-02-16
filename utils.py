@@ -56,3 +56,24 @@ def compute_var(embeddings):
     std_per_dim = torch.sqrt(variance_per_dim)  # Standard deviation for each dimension
     variance_loss = torch.relu(gamma - std_per_dim).mean()  # Applying the VICReg variance component formula
     return variance_loss
+
+
+
+def validate_model_reg(model, valid_dl, loss_func, device):
+    model.eval()
+    val_loss1 = 0.
+    val_loss2 = 0.
+    with torch.inference_mode():
+        correct = 0
+        for i, (images, labels) in enumerate(valid_dl):
+
+            images, labels = images.to(device), labels.to(device)
+            labels = labels.squeeze()
+
+            outputs,  = model(images)
+
+            val_loss1 += loss_func(outputs, labels)*labels.size(0)
+            # Compute accuracy and accumulate
+            correct += calculate_corrects(outputs[:,-1], labels[:,-1])
+
+    return val_loss1 / len(valid_dl.dataset), correct / len(valid_dl.dataset)
