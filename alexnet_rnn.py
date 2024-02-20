@@ -80,8 +80,8 @@ class AlexNetRNN(nn.Module):
       rnn_input = x1.clone()
       rnn_input = x1[:,1:,:]
 
-      zeros_to_concat = torch.zeros(batch_size, self.added_zeros, self.rnn_input, device=x1.device)
-      x1 = torch.cat((x1, zeros_to_concat), dim=1)
+    #   zeros_to_concat = torch.zeros(batch_size, self.added_zeros, self.rnn_input, device=x1.device)
+    #   x1 = torch.cat((x1, zeros_to_concat), dim=1)
 
       h0 = torch.zeros(1, batch_size, self.hidden_size, device=x1.device)
       # c0 = torch.zeros_like(h0)
