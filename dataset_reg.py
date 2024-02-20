@@ -56,7 +56,7 @@ class GratingDataset(Dataset):
         image_seq = torch.cat((ref_images, images))
 
         ref_labels = torch.full((5,), ref_label)
-        img_labels = torch.full((10,), img_label)
+        img_labels = torch.full((5,), img_label)
 
         labels = torch.cat((ref_labels,img_labels), dim=0)
 
