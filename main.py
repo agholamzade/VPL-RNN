@@ -22,7 +22,7 @@ if __name__ == '__main__':
     data_transforms = transforms.Compose([
         transforms.Resize(227), # changed from 128
         transforms.ToTensor(),
-        GaussianNoise(0, 0.01), # STANDARD DEVIATION OF GAUSSIAN NOISE
+        GaussianNoise(0, 1), # STANDARD DEVIATION OF GAUSSIAN NOISE
     ])
     
     wandb.login()
