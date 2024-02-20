@@ -76,8 +76,8 @@ class AlexNetRNN(nn.Module):
 
       batch_size = x1.shape[0]
 
-      zeros_to_concat = torch.zeros(batch_size, self.added_zeros, self.rnn_input, device=x1.device)
-      x1 = torch.cat((x1, zeros_to_concat), dim=1)
+    #   zeros_to_concat = torch.zeros(batch_size, self.added_zeros, self.rnn_input, device=x1.device)
+    #   x1 = torch.cat((x1, zeros_to_concat), dim=1)
 
       h0 = torch.zeros(1, batch_size, self.hidden_size, device=x1.device)
       # c0 = torch.zeros_like(h0)
