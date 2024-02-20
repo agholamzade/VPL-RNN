@@ -1,5 +1,5 @@
 
-from dataset_reg import GratingDataset
+from dataset import GratingDataset
 from transforms import GaussianNoise
 from alexnet_rnn import AlexNetRNN
 
