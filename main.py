@@ -98,7 +98,7 @@ if __name__ == '__main__':
                 "batch_size": batch_size,
                 "lr": 2e-3,
                 "sep": train_sep,
-                "pred_mult": .001
+                "pred_mult": .0005
         })
 
           # Copy your config
