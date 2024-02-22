@@ -25,8 +25,3 @@ source $project/py37/bin/activate
 python main.py
 
 tar -zcf $project/VPL/VPL-RNN/result-GRU-BCE-MSE0.tar data/output0/
-tar -zcf $project/VPL/VPL-RNN/result-GRU-BCE-MSE1.tar data/output1/
-tar -zcf $project/VPL/VPL-RNN/result-GRU-BCE-MSE2.tar data/output2/
-tar -zcf $project/VPL/VPL-RNN/result-GRU-BCE-MSE3.tar data/output3/
-tar -zcf $project/VPL/VPL-RNN/result-GRU-BCE-MSE4.tar data/output4/
-

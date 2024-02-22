@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
-    seed = 42
+    seed = 3
 
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     test_dir_list.reverse()
 
     models = []
-    for i in range(len(dir_list)):
+    for i in range(1):
 
         train_dir = dir_list[i]
         train_root_dir = train_dir[0]
@@ -98,7 +98,7 @@ if __name__ == '__main__':
                 "batch_size": batch_size,
                 "lr": 2e-3,
                 "sep": train_sep,
-                "pred_mult": .009
+                "pred_mult": .008
         })
 
           # Copy your config
