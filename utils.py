@@ -77,3 +77,4 @@ def validate_model_reg(model, valid_dl, loss_func, device):
             correct += calculate_corrects(outputs[:,-1], labels[:,-1])
 
     return val_loss1 / len(valid_dl.dataset), correct / len(valid_dl.dataset)
+

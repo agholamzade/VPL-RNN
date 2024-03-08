@@ -19,6 +19,8 @@ import random
 
 if __name__ == '__main__':
 
+    noise_levels = np.linspace(0.001,.1, 10)
+
     data_transforms = transforms.Compose([
         transforms.Resize(227), # changed from 128
         transforms.ToTensor(),
@@ -32,8 +34,7 @@ if __name__ == '__main__':
     
     num_seqs = 1000
     batch_size = 200
-    num_epochs = 30
-    # num_epochs = 10
+    num_epochs = 10
 
     num_workers = 8 
 
@@ -65,7 +66,7 @@ if __name__ == '__main__':
     test_dir_list.reverse()
 
     models = []
-    for i in range(len(dir_list)):
+    for i in range(1):
 
         train_dir = dir_list[i]
         train_root_dir = train_dir[0]
@@ -168,13 +169,20 @@ if __name__ == '__main__':
                     wandb.log(metrics)
 
                 step_ct += 1
+            
+            train_image, train_label = train_grating_dataset[0]
 
             val_loss1, val_loss2, accuracy = validate_model(model, test_dataloader, loss_fn, loss_fn2, device=device)
+
+            model_output,_, _ = model(train_image)
+            model_output = model_output.detach().numpy().squeeze()
+
 
             # 🐝 Log train and validation metrics to wandb
             val_metrics = {"val/BCE_Loss": val_loss1,
                            "val/MSE_loss": val_loss2,
-                            "val/val_accuracy": accuracy}
+                            "val/val_accuracy": accuracy,
+                            "val/sample_output": model_output}
             wandb.log({**metrics, **val_metrics})
 
             # print(f"Train Loss: {train_loss:.3f}, Valid Loss: {val_loss:3f}, Accuracy: {accuracy:.2f}")
