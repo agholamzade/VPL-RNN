@@ -179,7 +179,7 @@ if __name__ == '__main__':
                 val_loss1, val_loss2, accuracy = validate_model(model, test_dataloader, loss_fn, loss_fn2, device=device)
 
                 model_output,_, _ = model(train_image)
-                model_output = model_output.detach().numpy().squeeze()
+                model_output = model_output.detach().cpu().numpy().squeeze()
 
 
                 # 🐝 Log train and validation metrics to wandb
