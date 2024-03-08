@@ -173,6 +173,8 @@ if __name__ == '__main__':
                     step_ct += 1
                 
                 train_image, train_label = train_grating_dataset[0]
+                train_image, train_label = train_image.to(device), train_label.to(device)
+
 
                 val_loss1, val_loss2, accuracy = validate_model(model, test_dataloader, loss_fn, loss_fn2, device=device)
 
